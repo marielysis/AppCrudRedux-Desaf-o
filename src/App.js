@@ -4,12 +4,18 @@ import Productos from './components/Productos';
 import NuevoProducto from './components/NuevoProducto';
 import EditarProducto from './components/EditarProducto';
 
+// Rutas
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+// Redux
+import { Provider } from 'react-redux';
+import store from './store';
 
 
 function App() {
   return (
     <Router>
+      <Provider store={store}>
       <Header />
       <div className="container mt-5">
         <Switch>
@@ -18,6 +24,7 @@ function App() {
           <Route exact path="/productos/editar/:id" component={EditarProducto} />
         </Switch>
       </div>
+      </Provider>
     </Router>
   );
 }
