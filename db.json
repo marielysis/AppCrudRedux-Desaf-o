@@ -29,6 +29,11 @@
       "nombre": "Merengada de Cambur",
       "precio": 1200,
       "id": 6
+    },
+    {
+      "nombre": "Canasta",
+      "precio": 1110,
+      "id": 7
     }
   ]
 }

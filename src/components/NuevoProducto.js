@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+
 // Para poder usar funcion desde productosActions 
 import { useDispatch, useSelector } from 'react-redux';
 
 //desde actions de redux
 import { crearNuevoProductoAction } from '../actions/productoActions';
 
-const NuevoProducto = () => {
+const NuevoProducto = ({history}) => {
 
     // state del componente
     const [nombre, guardarNombre] = useState('');
@@ -38,6 +39,9 @@ const NuevoProducto = () => {
         nombre,
         precio
     });
+
+    // Redireccionar al home
+    history.push('/');
  }
 
     return (
