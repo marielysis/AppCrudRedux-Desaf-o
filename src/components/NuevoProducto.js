@@ -15,7 +15,7 @@ const NuevoProducto = ({history}) => {
     // utilizar use dispatch y te devuelve una funcion 
     const dispatch = useDispatch();
 
-    // acceder al state del store
+    // acceder al state del store con la data del producto a agregar
     const cargando = useSelector( state => state.productos.loading );
     const error = useSelector( state => state.productos.error);
 

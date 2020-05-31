@@ -4,7 +4,10 @@ import {
     AGREGAR_PRODUCTO_ERROR,
     COMENZAR_DESCARGA_PRODUCTOS,
     DESCARGA_PRODUCTOS_EXITO,
-    DESCARGA_PRODUCTOS_ERROR
+    DESCARGA_PRODUCTOS_ERROR,
+    OBTENER_PRODUCTO_ELIMINAR,
+    PRODUCTO_ELIMINADO_EXITO,
+    PRODUCTO_ELIMINADO_ERROR
 } from '../types';
 
 // importar cliente axios
@@ -13,14 +16,14 @@ import clienteAxios from '../config/axios';
 import Swal from 'sweetalert2';
 import Productos from '../components/Productos';
 
-// Crear nuevos productos
+// -------------Crear nuevos productos-------------------
 export function crearNuevoProductoAction(producto) {
     return async (dispatch) => {
         dispatch( agregarProducto() );
 
         try {
             // insertar productos a la api a traves del cliente axios
-            await clienteAxios.post('/product', producto);
+            await clienteAxios.post('/productos', producto);
             // si todo esta ok actualizar el state
             dispatch( agregarProductoExito(producto) );
 
@@ -59,6 +62,7 @@ const agregarProductoError = estado => ({
     payload: estado
 });
 
+// ------------Listar Get-----------------------------
 // Funcion que lista los registros que se encuentran en la api
 export function obtenerProductosAction() {
     return async (dispatch) => {
@@ -70,7 +74,8 @@ export function obtenerProductosAction() {
             dispatch( descargaProductosExitosa(respuesta.data));
             
         } catch (error) {
-            
+            console.log(error);
+            dispatch( descargaProductosError() )
         }
     }
 }
@@ -78,9 +83,46 @@ export function obtenerProductosAction() {
 const descargarProductos = () => ({
     type: COMENZAR_DESCARGA_PRODUCTOS,
     payload: true
-})
+});
 
 const descargaProductosExitosa = productos => ({
     type: DESCARGA_PRODUCTOS_EXITO,
     payload: productos
+});
+
+const descargaProductosError = () => ({
+    type: DESCARGA_PRODUCTOS_ERROR, 
+    payload: true
+});
+
+// -----------Selecciona y elimina el producto---------------------
+
+export function borrarProductoAction(id) {
+    return async (dispatch) => {
+        dispatch( obtenerProductoEliminar(id) );
+        
+        try {
+            await clienteAxios.delete(`/productos/${id}`);
+            dispatch( eliminarProductoExito() );
+
+            // Si se elimina, mostrar alerta
+            Swal.fire(
+                'Eliminado',
+                'El producto se eliminó correctamente',
+                'success'
+            )
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+const obtenerProductoEliminar = id => ({
+    type: OBTENER_PRODUCTO_ELIMINAR,
+    payload: id
+}); 
+
+const eliminarProductoExito = () => ({
+    type: PRODUCTO_ELIMINADO_EXITO
+
 })
