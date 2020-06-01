@@ -31,10 +31,6 @@ const Producto = ({producto}) => {
                 dispatch( borrarProductoAction(id) );
             }
         });
-
-        // Pasarlo al action
-        dispatch( borrarProductoAction(id) );
-
     }
 
     return (

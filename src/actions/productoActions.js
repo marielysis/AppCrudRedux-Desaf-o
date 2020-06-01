@@ -14,7 +14,7 @@ import {
 import clienteAxios from '../config/axios';
 
 import Swal from 'sweetalert2';
-import Productos from '../components/Productos';
+
 
 // -------------Crear nuevos productos-------------------
 export function crearNuevoProductoAction(producto) {
@@ -113,6 +113,7 @@ export function borrarProductoAction(id) {
             )
         } catch (error) {
             console.log(error);
+            dispatch( eliminarProductoError() );
         }
     }
 }
@@ -125,4 +126,9 @@ const obtenerProductoEliminar = id => ({
 const eliminarProductoExito = () => ({
     type: PRODUCTO_ELIMINADO_EXITO
 
+})
+
+const eliminarProductoError = () => ({
+    type: PRODUCTO_ELIMINADO_ERROR,
+    payload: true
 })
