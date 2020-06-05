@@ -14,7 +14,7 @@ const Productos = () => {
         const cargarProductos = () => dispatch( obtenerProductosAction() );
         cargarProductos();
 
-    }, []);
+    }, [dispatch]);
 
     // Obtener el state con la data productos
     const productos = useSelector( state => state.productos.productos );
